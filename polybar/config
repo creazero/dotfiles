@@ -1,0 +1,137 @@
+[colors]
+background = #282828
+foreground = #ebdbb2
+red = #cc241d
+
+[tomorrow]
+background = #1d1f21
+foreground = #c5c8c6
+
+[bar/main]
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+monitor = DVI-D-0
+
+fixed-center = true
+
+width = 1920
+height = 23
+
+radius = 2
+
+padding = 0
+
+font-0 = "artwiz lemon:pixelsize=7;1"
+font-1 = "Wuncon Siji:pixelsize=7;1"
+
+modules-left = i3 mpd
+modules-center = title
+modules-right = date
+
+[bar/bsp]
+background = ${tomorrow.background}
+foreground = ${tomorrow.foreground}
+
+monitor = DVI-D-0
+fixed-center = true
+
+width = 1900
+height = 25
+
+offset-x = 10
+offset-y = 10
+
+modules-left = bspwm mpd
+modules-center = 
+modules-right = date
+
+line-size = 2
+
+font-0 = "lucy tewi:pixelsize=8;1"
+font-1 = "Wuncon Siji:pixelsize=9;1"
+
+[module/bspwm]
+type = internal/bspwm
+
+format = <label-state>
+format-padding = 2
+
+ws-icon-0 = www;
+ws-icon-1 = term;
+ws-icon-2 = code;
+ws-icon-3 = multi;
+ws-icon-4 = comm;
+ws-icon-default = 
+
+label-focused = %icon%
+#label-focused-background = #32363a
+label-focused-underline = #cc6666
+label-focused-padding = 1
+
+label-occupied = %icon%
+label-occupied-padding = 1
+label-occupied-underline = #482424
+
+label-empty = %icon%
+label-empty-padding = 1
+
+[module/i3]
+type = internal/i3
+
+strup-wsnumbers = true
+index-sort = true
+
+format = <label-state>
+format-background = #3c3836
+format-padding = 2
+
+label-focused = 
+label-focused-padding = 1
+
+label-unfocused = 
+label-unfocused-padding = 1
+
+label-urgent = 
+label-urgent-padding = 1
+label-urgent-foreground = ${colors.red}
+
+[module/mpd]
+type = internal/mpd
+
+host = 127.0.0.1
+port = 6600
+
+interval = 2
+
+format-online = <label-song>
+format-online-background = #2a2d30
+format-online-padding = 2
+
+format-offline = None
+format-offline-background = #2a2d30
+format-offline-padding = 2
+
+label-song = %{F#989b99}%artist%%{F-} %title%
+
+[module/title]
+type = internal/xwindow
+
+format-background = #2a2d30
+format-padding = 2
+
+label =  %title%
+label-maxlen = 50
+
+[module/date]
+type = internal/date
+
+interval = 1.0
+
+time = %H:%M
+
+format =  <label>
+format-background = #2a2d30
+format-padding = 2
+
+label = %time%

@@ -1,0 +1,23 @@
+!URxvt.font: xft:Hack:size=11
+!URxvt.font: xft:Hack:size=12:style=Bold, xft:Inconsolata for Powerline
+!URxvt.font: xft:Inconsolata for Powerline:size=11:style=BoldForPowerline
+URxvt.font: xft:xos4 Terminus:size=9
+!URxvt.font: xft:lucy tewi:size=8
+!URxvt.boldFont: xft:lucy tewi:size=8
+!URxvt.font: xft:artwiz lemon:size=7
+URxvt.scrollBar: false
+!URxvt.internalBorder: 10
+
+#include ".Xres/jellybeans"
+
+rofi.color-enabled: true
+
+!                  bg       border   separator
+rofi.color-window: #1d1f21, #cc6666, #cc6666
+
+!                  bg       fg       bg-alt   hl-bg    hl-fg
+rofi.color-normal: #1d1f21, #c5c8c6, #1d1f21, #cc6666, #eef1ef
+rofi.color-active: #cc6666, #eef1ef, #cc6666, #cc6666, #cc6666
+rofi.color-urgent: #cc241d, #282828, #cc241d, #fb4934, #282828
+
+rofi.font: Misc Ohsnap 8
