@@ -7,7 +7,8 @@
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="eastwood"
+# ZSH_THEME="eastwood"
+ZSH_THEME="minimal"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -51,7 +52,7 @@ ZSH_THEME="eastwood"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git django zsh-completions zsh-syntax-highlighting)
+plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -83,25 +84,16 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-source $HOME/.cargo/env
-export RUST_SRC_PATH=~/.multirust/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src
 
-export PATH=$PATH:~/go/bin:$HOME/.config/composer/vendor/bin
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-alias neofetch="neofetch --ascii_distro gentoo"
-alias youtube-music="youtube-dl --extract-audio --audio-format mp3 --audio-quality 0"
+export GOPATH=$HOME/Projects/Go
+export PATH=$PATH:$HOME/.local/bin:$GOPATH/bin:$HOME/.gem/ruby/2.4.0/bin
 
-alias eixi="eix -I"
-alias eixc="eix -C"
-alias eixu="eix -U"
-
-alias tmux="TERM=screen-256color-bce tmux -2"
-
-eval "$(thefuck --alias)"
-
-autoload -U compinit && compinit
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-export WORKON_HOME=~/Envs
 source /usr/bin/virtualenvwrapper.sh
+
+export DJANGO_READ_DOT_ENV_FILE=true
+alias tmux="TERM=rxvt-unicode-256color tmux"
+# alias tmux attach="TERM=rxvt-unicode-256color tmux attach"
