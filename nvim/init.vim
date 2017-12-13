@@ -7,15 +7,17 @@ syntax on
 " - Avoid using standard Vim directory names like 'plugin'
 call plug#begin('~/.local/share/nvim/plugged')
 
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+
 Plug 'scrooloose/nerdtree'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install.py --all' }
 
 " Completion
-Plug 'roxma/nvim-completion-manager'
-Plug 'roxma/clang_complete'
 Plug 'rust-lang/rust.vim'
-Plug 'racer-rust/vim-racer'
-Plug 'roxma/nvim-cm-racer'
+Plug 'neovimhaskell/haskell-vim'
+Plug 'valloric/youcompleteme'
+
+Plug 'airblade/vim-gitgutter'
 
 " Hi
 Plug 'octol/vim-cpp-enhanced-highlight'
@@ -23,14 +25,13 @@ Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'tpope/vim-fugitive'
 Plug 'scrooloose/syntastic'
 Plug 'itchyny/lightline.vim'
-Plug 'nsf/gocode', { 'rtp': 'nvim', 'do': '~/.local/share/nvim/plugged/gocode/nvim/symlink.sh' }
 
 " Colors
 Plug 'chriskempson/vim-tomorrow-theme'
-Plug 'beigebrucewayne/Turtles'
 Plug 'morhetz/gruvbox'
 Plug 'nelstrom/vim-mac-classic-theme'
 Plug 'nanotech/jellybeans.vim'
+Plug 'joshdick/onedark.vim'
 
 call plug#end()
 
@@ -85,6 +86,7 @@ let g:clang_library_path='/usr/lib64/libclang.so.3.9'
 " toggle search highlights
 :noremap <F4> :set hlsearch! hlsearch?<CR>
 
+set background=dark
 colorscheme jellybeans
 hi Normal ctermbg=NONE
 
@@ -97,13 +99,14 @@ nnoremap <leader>h :bp<cr>
 nnoremap <leader>ev :vs $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
 
+"nnoremap ; :Buffers<cr>
+nnoremap <leader>t :Files<cr>
+
+let g:ackprg = 'ag --nogroup --nocolor --column'
+
 inoremap jk <esc>
 inoremap <esc> <nop>
 
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 
-au FileType c,cpp nmap <leader>gd <Plug>(clang_complete_goto_declaration)
-
-augroup CPP
-    au!
-    au BufEnter,BufNewFile, *.c, *.h, *.cpp, setlocal ts=2 sw=2 sts=2
+let g:ycm_rust_src_path="/home/creazero/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src/"

@@ -1,1 +1,1 @@
-![alt text](https://raw.githubusercontent.com/creazero/dotfiles/master/screenshot.png)
+![alt text](https://i.imgur.com/jis29ST.png)

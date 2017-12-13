@@ -1,4 +1,4 @@
-Config { font = "xft:lucy tewi-7"
+Config { font = "xft:lucy tewi-8"
        , additionalFonts = []
        , borderColor = "#282c34"
        , border = TopB

@@ -92,7 +92,7 @@ main = do
             , ((myModMask,               xK_bracketleft),  spawn "mpc prev")
             , ((myModMask,               xK_d),            spawn myLauncher)
             , ((myModMask .|. shiftMask, xK_Return),       spawn myTerminal)
-            , ((myModMask .|. shiftMask, xK_l),            spawn "i3lock-fancy")
+            , ((myModMask .|. shiftMask, xK_l),            spawn "lock -l")
             ]
 
 defaults = defaultConfig
