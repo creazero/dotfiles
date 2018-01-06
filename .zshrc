@@ -2,13 +2,13 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-  export ZSH=/home/creazero/.oh-my-zsh
+#  export ZSH=/home/creazero/.oh-my-zsh
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 # ZSH_THEME="eastwood"
-ZSH_THEME="minimal"
+# ZSH_THEME="minimal"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -52,9 +52,9 @@ ZSH_THEME="minimal"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+# plugins=(git)
 
-source $ZSH/oh-my-zsh.sh
+# source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
@@ -85,15 +85,36 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+#export NVM_DIR="$HOME/.nvm"
+#[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+#[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+autoload -U colors
+colors
+
+alias ls="ls --color=auto"
+alias ll="ls -l"
+alias la="ls -a"
+
+# Git aliases
+alias gcl="git clone"
+alias gpl="git pull"
+alias gst="git status"
+alias gss="git status -s"
+
+alias kernel="eselect kernel"
+alias kernell="eselect kernel list"
+alias kernels="sudo eselect kernel set"
 
 export GOPATH=$HOME/Projects/Go
-export PATH=$PATH:$HOME/.local/bin:$GOPATH/bin:$HOME/.gem/ruby/2.4.0/bin
+export PATH=$PATH:$HOME/.local/bin:$GOPATH/bin
 
 source /usr/bin/virtualenvwrapper.sh
+source $HOME/.cargo/env
 
 export DJANGO_READ_DOT_ENV_FILE=true
 alias tmux="TERM=rxvt-unicode-256color tmux"
-# alias tmux attach="TERM=rxvt-unicode-256color tmux attach"
+
+# xseticon -name "Alacritty" $HOME/Pictures/coding.png
+
+# PS1='%2~ »%b '
+PS1="%F{blue}[%~]%f$ "
