@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+filename=`youtube-dl --get-filename $1`
+youtube-dl -o "/tmp/$filename" $1
+mpv "/tmp/$filename" && rm "/tmp/$filename"

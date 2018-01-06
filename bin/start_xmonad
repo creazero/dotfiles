@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+nitrogen --restore &
+
+xrdb ~/.Xresources
+
+transmission-daemon
+
+Telegram &
+
+dunst &
+
+mpc pause
+
+xmonad

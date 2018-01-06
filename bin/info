@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+notify-send "`date "+%T%n%d %A %Y"`"

@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+SCREENSHOT_DIR=$HOME/Screenshots
+mkdir -p $SCREENSHOT_DIR
+sleep 0.2
+name=$(date "+%Y-%m-%d-%H%M%S.png")
+maim -s "$SCREENSHOT_DIR/$name" && notify-send "Screenshot was taken"
