@@ -16,6 +16,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'rust-lang/rust.vim'
 Plug 'neovimhaskell/haskell-vim'
 Plug 'valloric/youcompleteme'
+Plug 'cespare/vim-toml'
 
 Plug 'airblade/vim-gitgutter'
 
@@ -24,7 +25,7 @@ Plug 'octol/vim-cpp-enhanced-highlight'
 
 Plug 'tpope/vim-fugitive'
 Plug 'scrooloose/syntastic'
-Plug 'itchyny/lightline.vim'
+Plug 'vim-scripts/sudo.vim'
 
 " Colors
 Plug 'chriskempson/vim-tomorrow-theme'
@@ -46,7 +47,7 @@ set smarttab
 set hlsearch
 set number
 set noswapfile
-set cursorline
+"set cursorline
 set autoindent
 
 set shiftwidth=4
@@ -61,20 +62,6 @@ set ttimeoutlen=0
 set clipboard=unnamed
 set clipboard^=unnamedplus
 
-let g:lightline = {
-      \ 'colorscheme': 'jellybeans',
-      \ 'active': {
-      \   'right': [ [ 'lineinfo' ],
-      \              [ 'percent' ],
-      \              [ 'gitbranch', 'filetype' ] ]
-      \ },
-      \ 'component_function': {
-      \   'gitbranch': 'fugitive#head'
-      \ },
-      \ }
-
-let g:clang_library_path='/usr/lib64/libclang.so.3.9'
-
 :noremap / :set hlsearch<CR>/
 
 " toggle paste mode
@@ -87,11 +74,12 @@ let g:clang_library_path='/usr/lib64/libclang.so.3.9'
 :noremap <F4> :set hlsearch! hlsearch?<CR>
 
 set background=dark
-colorscheme jellybeans
 hi Normal ctermbg=NONE
 
 set hidden
-let mapleader=","
+let mapleader=" "
+hi StatusLine   ctermbg=0   ctermfg=231 cterm=NONE
+hi StatusLineNC ctermfg=231 ctermbg=234 cterm=NONE
 
 nnoremap <leader>bd :bd<cr>
 nnoremap <leader>l :bn<cr>
@@ -99,7 +87,7 @@ nnoremap <leader>h :bp<cr>
 nnoremap <leader>ev :vs $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
 
-"nnoremap ; :Buffers<cr>
+nnoremap <leader>; :Buffers<cr>
 nnoremap <leader>t :Files<cr>
 
 let g:ackprg = 'ag --nogroup --nocolor --column'
