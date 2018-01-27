@@ -1,7 +1,7 @@
 Config { font = "xft:lucy tewi-8"
        , additionalFonts = []
        , borderColor = "#282c34"
-       , border = TopB
+       , border = NoBorder
        , bgColor = "#000000"
        , fgColor = "#ffffff"
        , alpha = 255

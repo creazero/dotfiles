@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+for file in $HOME/Downloads/*
+do
+    mt=`mimetype $file | sed -r 's/.*: (.*)$/\1/'`
+    if [[ $mt =~ .*bittorrent$ ]];
+    then
+        torrent_ins=`transmission-show "$file"`
+        dwn_fld=`$HOME/Scripts/analyze_torrent.py "$torrent_ins"`
+        transmission-remote --add "$file" -w "$dwn_fld" --torrent-done-script "$HOME/Scripts/torrent_done" && rm "$file"
+    fi
+done

@@ -61,19 +61,20 @@ myManageHook = composeAll
     , className =? "mpv"             --> doFloat
     , className =? "Pavucontrol"     --> doFloat
     , className =? "Thunar"          --> doFloat
+    , className =? "Steam"           --> doFloat
     , manageDocks
     , manageScratchPad
     ]
 
 myLayout = minimize $
            smartBorders (
-               aTiled |||
-               aFullTiled )
+               aTiled     |||
+               aFullTiled |||
+               aFullScreen)
             where
                 aTiled      = named "mtiled"  ( avoidStruts $ gaps [(U,5), (R,5), (L,5), (D,5)] $ ResizableTall nmaster delta ratio [] )
                 aFullScreen = named "mfullscreen" ( noBorders(fullscreenFull Full) )
                 aFullTiled  = named "mfulltiled" ( avoidStruts $ noBorders $ fullscreenFull Full)
-                aFull       = named "mfull" ( fullscreenFull Full)
                 nmaster = 1
                 delta   = 5/100
                 ratio   = 1/2
@@ -122,7 +123,7 @@ myModMask = mod4Mask
 
 myFocusFollowsMouse :: Bool
 myFocusFollowsMouse = True
-                         
+
 main = do
     xmproc <- spawnPipe "xmobar ~/.xmonad/xmobar.hs"
     xmonad
@@ -151,6 +152,7 @@ main = do
             , ((myModMask,               xK_i),            spawn "~/.bin/info")
             , ((myModMask,               xK_n),            spawn "~/.bin/mpc_info")
             , ((myModMask .|. shiftMask, xK_o),            scratchpadSpawnActionTerminal "urxvt")
+            , ((myModMask,               xK_e),            spawn "emacsclient")
             ]
 
 defaults = defaultConfig
