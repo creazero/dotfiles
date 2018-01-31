@@ -105,6 +105,9 @@ alias kernel="eselect kernel"
 alias kernell="eselect kernel list"
 alias kernels="sudo eselect kernel set"
 
+alias auvDN="sudo emerge -auvDN @world"
+alias auv="sudo emerge -auv"
+
 export GOPATH=$HOME/Projects/Go
 export PATH=$PATH:$HOME/.local/bin:$GOPATH/bin
 
@@ -114,7 +117,15 @@ source $HOME/.cargo/env
 export DJANGO_READ_DOT_ENV_FILE=true
 alias tmux="TERM=rxvt-unicode-256color tmux"
 
-# xseticon -name "Alacritty" $HOME/Pictures/coding.png
+export RUST_SRC_PATH="/home/creazero/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src/"
+
+autoload -Uz vcs_info
+autoload -Uz compinit
+compinit
 
 # PS1='%2~ »%b '
 PS1="%F{blue}[%~]%f$ "
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+export BG1="none"
