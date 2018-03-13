@@ -1,31 +1,138 @@
+;;; package - something
+
+;;; Commentary:
 (require 'package)
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+
+;;; Code:
+(add-to-list 'package-archives
+             '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 (package-initialize)
 
-;; This is only needed once, near the top of the file
-(require 'use-package)
+(use-package evil
+  :init
+  (progn
+    (setq evil-default-cursor t)
+
+    (use-package evil-leader
+      :init (global-evil-leader-mode)
+      :config
+      (progn
+	(setq evil-leader/leader "<SPC>")
+	(setq evil-leader/in-all-states t)
+	(evil-leader/set-key
+	  "e" 'helm-find-files
+	  ;; Buffers
+	  "b [" 'previous-buffer
+	  "b ]" 'next-buffer
+	  "b k" 'neotree-toggle
+	  "b d" 'kill-buffer
+	  "b b" 'switch-to-buffer
+
+	  ;; Windows
+	  "w l" 'evil-window-right
+	  "w h" 'evil-window-left
+	  "w k" 'evil-window-top
+	  "w j" 'evil-window-bottom
+
+	  "w 1" 'delete-other-windows
+	  "w 2" 'split-window-below
+	  "w 3" 'split-window-right
+
+	  "n g" 'neotree-refresh
+	  "n r" 'neotree-change-root
+	  "n RET" 'neotree-enter
+	  "n c" 'neotree-create-node
+
+	  ":" 'helm-M-x
+	  )
+	(evil-leader/set-key-for-mode 'c++-mode
+	  "r n" 'rtags-rename-symbol
+	  "r f" 'rtags-find-symbol-at-point)
+	))
+    (evil-mode 1))
+  :config
+  (progn
+    (use-package key-chord
+      :init (key-chord-mode t)
+      :config
+      (progn
+	(key-chord-define evil-insert-state-map "jk" 'evil-normal-state)))
+    (setq evil-cross-lines t)))
+
+(use-package doom-themes
+  :config
+  (progn
+    (setq doom-themes-enable-bold t
+	  doom-themes-enable-italic t)
+    (load-theme 'doom-tomorrow-night t)
+
+    (doom-themes-neotree-config)
+    ))
 
 (use-package company
-  :init (require 'company)
-  :diminish company-mode
   :config
-  (setq company-idle-delay            0.1
-	company-minimum-prefix-length 1
-	company-echo-delay            0
-	company-show-numbers          t
-	company-dabbrev-downcase      nil
-	company-dabbrev-ignore-case   nil
-	)
-  (add-hook 'prog-mode-hook 'company-mode)
-  )
+  (progn
+    (add-hook 'after-init-hook 'global-company-mode)
+    (global-set-key (kbd "M-/") 'company-complete-command-or-cycle)
+    (setq company-idle-delay 0)))
 
-;; Font setting
-(add-to-list 'default-frame-alist '(font . "SF Mono-18"))
+(use-package irony
+  :config
+  (progn
+    (unless (irony--find-server-executable) (call-interactively #'irony-install-server))
+    (add-hook 'c++-mode-hook 'irony-mode)
+    (add-hook 'c-mode-hook 'irony-mode)
 
-;; Hooks
+    (setq irony-cdb-compilation-databases '(irony-cdb-libclang
+					    irony-cdb-clang-complete))
+    (add-hook 'irony-mode 'irony-cdb-autosetup-compile-options)
+
+    (use-package company-irony
+      :config
+      (progn
+	(eval-after-load 'company '(add-to-list 'company-backends 'company-irony))))
+    (use-package flycheck-irony
+      :config
+      (progn
+	(eval-after-load 'flycheck '(add-hook 'flycheck-mode-hook #'flycheck-irony-setup))))))
+
+(use-package rtags
+  :config
+  (progn
+    (unless (rtags-executable-find "rc") (error "Binary rc is not installed!"))
+    (unless (rtags-executable-find "rdm") (error "Binary rdm is not installed"))
+
+    (define-key c-mode-base-map (kbd "M-.") 'rtags-find-symbol-at-point)
+    (define-key c-mode-base-map (kbd "M-,") 'rtags-find-references-at-point)
+    (define-key c-mode-base-map (kbd "M-?") 'rtags-display-summary)
+    (rtags-enable-standard-keybindings)
+
+    (setq rtags-use-helm t)
+
+    (add-hook 'kill-emacs-hook 'rtags-quit-rdm)
+    ))
+
+(use-package projectile
+  :config
+  (progn
+    (projectile-global-mode)))
+
+(add-to-list 'default-frame-alist '(font . "Roboto Mono for Powerline-16"))
+
 (add-hook 'prog-mode-hook 'linum-mode)
-(add-hook 'rust-mode-hook 'racer-mode)
+(add-hook 'c++-mode-hook 'flycheck-mode)
+(add-hook 'c-mode-hook 'flycheck-mode)
 
+(tool-bar-mode -1)
+(menu-bar-mode -1)
+(scroll-bar-mode -1)
+
+(setq word-wrap t
+      make-backup-files nil
+      auto-save-default nil
+      c-basic-offset 8
+      c-default-style "linux"
+      column-number-mode t)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -34,44 +141,13 @@
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    (quote
-    ("53a9ec5700cf2bb2f7059a584c12a5fdc89f7811530294f9eaf92db526a9fb5f" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "2caab17a07a40c1427693d630adb45f5d6ec968a1771dcd9ea94a6de5d9f0838" default)))
+    ("2af26301bded15f5f9111d3a161b6bfb3f4b93ec34ffa95e42815396da9cb560" default)))
  '(package-selected-packages
    (quote
-    (auctex haskell-mode git-gutter typescript-mode js2-mode vue-mode web-mode python-mode ujelly-theme doom-themes solarized-theme darktooth-theme racer rust-mode use-package company))))
+    (ninja-mode rc-mode helm-projectile projectile helm-rtags company-rtags flycheck-rtags rtags helm-mode-manager helpful git-gutter flycheck-irony company-irony irony flycheck company magit auctex haskell-mode doom-themes use-package neotree evil-leader key-chord evil))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
-
-;; Settings
-(setq racer-rust-src-path "/home/creazero/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src/")
-(setq make-backup-files nil)
-(setq auto-save-default nil)
-(setq auto-save-file-list nil)
-(setq linum-format "%s ")
-(setq word-wrap t)
-(scroll-bar-mode -1)
-(tool-bar-mode   -1)
-(menu-bar-mode   -1)
-(global-hl-line-mode t)
-
-;; Mode line
-(column-number-mode t)
-
-(load-theme 'ujelly)
-
-;; Functions
-(defun kill-other-buffers ()
-  "Kill other buffers"
-  (interactive)
-  (mapc 'kill-buffer (delq (current-buffer) (buffer-list))))
-
-(global-set-key (kbd "C-x C-k") 'kill-other-buffers)
-
-(eval-after-load 'latex
-  '(define-key LaTeX-mode-map (kbd "C-j")
-     (lambda ()
-       (interactive)
-       (message "hello"))))
