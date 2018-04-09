@@ -3,12 +3,16 @@ nitrogen --restore &
 
 xrdb ~/.Xresources
 
-transmission-daemon
-
-Telegram &
+mpd
 
 dunst &
 
 mpc pause
+
+stalonetray -c "/home/creazero/.xmonad/stalonetrayrc-dual" --kludges=force_icons_size &
+
+telegram-desktop &
+
+mpdscribble &
 
 xmonad

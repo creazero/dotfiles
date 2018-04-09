@@ -11,11 +11,17 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
 Plug 'scrooloose/nerdtree'
+Plug 'roxma/nvim-completion-manager'
+Plug 'roxma/ncm-clang'
+
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
 
 " Completion
 Plug 'rust-lang/rust.vim'
 Plug 'neovimhaskell/haskell-vim'
-Plug 'valloric/youcompleteme'
 Plug 'cespare/vim-toml'
 
 Plug 'airblade/vim-gitgutter'
@@ -25,14 +31,10 @@ Plug 'octol/vim-cpp-enhanced-highlight'
 
 Plug 'tpope/vim-fugitive'
 Plug 'scrooloose/syntastic'
-Plug 'vim-scripts/sudo.vim'
 
-" Colors
-Plug 'chriskempson/vim-tomorrow-theme'
 Plug 'morhetz/gruvbox'
-Plug 'nelstrom/vim-mac-classic-theme'
-Plug 'nanotech/jellybeans.vim'
-Plug 'joshdick/onedark.vim'
+Plug 'rakr/vim-two-firewatch'
+Plug 'arcticicestudio/nord-vim'
 
 call plug#end()
 
@@ -47,7 +49,7 @@ set smarttab
 set hlsearch
 set number
 set noswapfile
-"set cursorline
+set cursorline
 set autoindent
 
 set shiftwidth=4
@@ -74,12 +76,16 @@ set clipboard^=unnamedplus
 :noremap <F4> :set hlsearch! hlsearch?<CR>
 
 set background=dark
+colorscheme gruvbox
 hi Normal ctermbg=NONE
+hi StatusLine ctermbg=7 ctermfg=0
 
 set hidden
 let mapleader=" "
-hi StatusLine   ctermbg=0   ctermfg=231 cterm=NONE
-hi StatusLineNC ctermfg=231 ctermbg=234 cterm=NONE
+"hi StatusLine   ctermbg=NONE   ctermfg=231 cterm=NONE
+"hi StatusLineNC ctermfg=231 ctermbg=234 cterm=NONE
+"hi CursorLine   ctermfg=NONE   ctermbg=8   cterm=NONE
+"hi CursorLineNr ctermfg=NONE   ctermbg=8   cterm=NONE
 
 nnoremap <leader>bd :bd<cr>
 nnoremap <leader>l :bn<cr>
@@ -96,5 +102,6 @@ inoremap jk <esc>
 inoremap <esc> <nop>
 
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
 
 let g:ycm_rust_src_path="/home/creazero/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src/"

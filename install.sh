@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
@@ -13,3 +15,12 @@ cp -r ./nvim ~/.config/nvim
 cp -r ./sxhkd ~/.config/sxhkd
 cp ./.zshrc ~/.zshrc
 cp ./.emacs ~/.emacs
+
+xmonad() {
+    mkdir -p "${HOME}/xmonad"
+    cp ./xmonad/* "${HOME}/xmonad"
+    if [[ ! -z `which 'alacritty' | grep 'no alacritty'` ]];
+    then
+    fi
+    xmonad --recompile
+}

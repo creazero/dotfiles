@@ -20,7 +20,7 @@ Config {
     -- width = 2560 - (12 * 19) = 2332
     -- height = 19
     position = Static { xpos = 1920, ypos = 0, width = 1805, height = 23 },
-    font = "xft:Terminus-9",
+    font = "xft:Roboto-11",
     bgColor = "#0c0d0e",
     fgColor = "#b7b8b9",
     lowerOnStart = True,
