@@ -2,12 +2,12 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-#  export ZSH=/home/creazero/.oh-my-zsh
+ export ZSH=/home/creazero/.oh-my-zsh
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-# ZSH_THEME="eastwood"
+ZSH_THEME="eastwood"
 # ZSH_THEME="minimal"
 
 # Uncomment the following line to use case-sensitive completion.
@@ -52,7 +52,7 @@
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-# plugins=(git)
+plugins=(git)
 
 # source $ZSH/oh-my-zsh.sh
 
@@ -118,6 +118,7 @@ export DJANGO_READ_DOT_ENV_FILE=true
 alias tmux="TERM=rxvt-unicode-256color tmux"
 
 export RUST_SRC_PATH="/home/creazero/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src/"
+export EDITOR="nvim"
 
 autoload -Uz vcs_info
 autoload -Uz compinit

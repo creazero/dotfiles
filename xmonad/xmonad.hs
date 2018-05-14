@@ -4,6 +4,8 @@ import qualified Data.Map as M
 
 import System.Exit
 
+import XMonad.Actions.WorkspaceNames
+
 -- HOOKS
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops as Ewm
@@ -12,9 +14,12 @@ import XMonad.Hooks.SetWMName
 
 -- LAYOUTS
 import XMonad.Layout.Fullscreen
+import XMonad.Layout.Gaps
 import XMonad.Layout.Named
 import XMonad.Layout.NoBorders
+import XMonad.Layout.Tabbed
 import XMonad.Layout.ResizableTile
+import XMonad.Layout.DragPane
 
 -- UTIL
 import XMonad.Util.EZConfig
@@ -23,7 +28,7 @@ import XMonad.Util.Run
 ----------------------------------
 -- Terminal
 myTerminal :: String
-myTerminal = "/usr/local/bin/alacritty"
+myTerminal = "urxvt"
 
 -- Screenshot
 mySelectScreenshot :: String
@@ -46,6 +51,7 @@ myWorkspaces = ["tmx", "www", "wrk", "med", "tgm"] ++ ["6","7"]
 myManageHook = composeAll
     [ className =? "Google-chrome"   --> doShift "www"
     , className =? "mpv"             --> doFloat
+    , className =? "smplayer"        --> doFloat
     , className =? "Pavucontrol"     --> doFloat
     , className =? "Thunar"          --> doFloat
     , className =? "Pcmanfm"         --> doFloat
@@ -53,21 +59,38 @@ myManageHook = composeAll
     , className =? "Telegram"        --> doFloat
     , className =? "TelegramDesktop" --> doFloat
     , className =? "Slack"           --> doFloat
+    , className =? "Lxtask"          --> doFloat
+    , className =? "discord"         --> doFloat
+    , className =? "Oblogout"        --> doFloat
     , className =? "stalonetray"     --> doIgnore
     , manageDocks
     ]
 
 myLayout = smartBorders (
-               aTiled     |||
-               aFullTiled |||
-               aFullScreen)
+                   aTiled     |||
+                   aFullTiled |||
+                   aVertical  |||
+                   aTabbed    |||
+                   aFullScreen)
             where
                 aTiled      = named "mtiled"  ( avoidStruts $ ResizableTall nmaster delta ratio [] )
                 aFullScreen = named "mfullscreen" ( noBorders $ fullscreenFull Full )
                 aFullTiled  = named "mfulltiled" ( avoidStruts $ noBorders $ fullscreenFull Full)
+                aVertical   = named "mvertical" ( avoidStruts $ dragPane Horizontal 0.1 0.5)
+                aTabbed     = named "mtabbed" ( avoidStruts $ tabbed shrinkText tabConfig)
                 nmaster = 1
                 delta   = 5/100
                 ratio   = 1/2
+
+tabConfig = defaultTheme {
+    activeBorderColor = "#7C7C7C",
+    activeTextColor = "#CEFFAC",
+    activeColor = "#000000",
+    inactiveBorderColor = "#7C7C7C",
+    inactiveTextColor = "#EEEEEE",
+    inactiveColor = "#000000",
+    fontName      = "xft:xos4 Terminus-9"
+}
 
 -- Borders
 myNormalBorder :: String
@@ -201,13 +224,13 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   -- mod-{w,e,r}, Switch to physical/Xinerama screens 1, 2, or 3
   -- mod-shift-{w,e,r}, Move client to screen 1, 2, or 3
   [((m .|. modMask, key), screenWorkspace sc >>= flip whenJust (windows . f))
-      | (key, sc) <- zip [xK_e, xK_w, xK_r] [0..]
+      | (key, sc) <- zip [xK_w, xK_e, xK_r] [0..]
       , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
 
  
 main :: IO ()
 main = do
-    xmproc <- spawnPipe "xmobar ~/.xmonad/xmobar-dual.hs"
+    xmproc <- spawnPipe "xmobar ~/.xmonad/xmobar-single.hs"
     xmonad
         $ docks
         $ fullscreenSupport
@@ -223,7 +246,7 @@ main = do
             }
         , manageHook = manageDocks <+> myManageHook
         } `additionalKeys`
-            [ ((myModMask .|. shiftMask,   xK_s),            spawn "thunar")
+            [ ((myModMask .|. shiftMask,   xK_s),            spawn "pcmanfm")
             , ((myModMask,                 xK_Print),        spawn mySelectScreenshot)
             , ((myModMask .|. shiftMask,   xK_Print),        spawn myScreenshot)
             , ((myModMask .|. controlMask, xK_Print),        spawn currentMonitorScr)

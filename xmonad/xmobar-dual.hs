@@ -20,7 +20,7 @@ Config {
     -- width = 2560 - (12 * 19) = 2332
     -- height = 19
     position = Static { xpos = 1920, ypos = 0, width = 1805, height = 23 },
-    font = "xft:Roboto-11",
+    font = "xft:Roboto:size=11:style=bold",
     bgColor = "#0c0d0e",
     fgColor = "#b7b8b9",
     lowerOnStart = True,
@@ -37,5 +37,5 @@ Config {
     ],
     sepChar = "%",
     alignSep = "}{",
-    template = "%StdinReader% }{ %mpd%   %memory%   %enp3s0%   <fc=#FFFFCC>%date%</fc>"
+    template = "%StdinReader% }{ %memory%   %enp3s0%   <fc=#FFFFCC>%date%</fc>"
 }
