@@ -48,3 +48,5 @@ nnoremap <silent> <leader>e :action GotoNextError<CR>
 nnoremap <silent> <leader>bb :action Back<CR>
 nnoremap <silent> <leader>gl :action GotoLine<CR>
 nnoremap <silent> <leader>kt :action CloseActiveTab<CR>
+
+set rnu
